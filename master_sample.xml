@@ -1,0 +1,29 @@
+<database>
+  <group>
+    <entry>
+      <title>Naruto</title>
+      <username>Naruto1</username>
+      <password>Naruto2</password>
+      <url>Naruto3</url>
+      <comment>Naruto4</comment>
+    </entry>
+    <group>
+      <entry>
+        <title>Sakura</title>
+        <username>Sakura1</username>
+        <password>Sakura2</password>
+        <url>Sakura3</url>
+        <comment>Sakura4</comment>
+      </entry>
+    </group>
+  </group>
+  <group>
+    <entry>
+      <title>Sasuke</title>
+      <username>Sasuke1</username>
+      <password>Sasuke2</password>
+      <url>Sasuke3</url>
+      <comment>Sasuke4</comment>
+    </entry>
+  </group>
+</database>

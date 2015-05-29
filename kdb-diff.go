@@ -26,6 +26,12 @@ type Entry struct {
 	Comment  string `xml:"comment"`
 }
 
+type Result struct {
+	MasterOnly   []string
+	ConflictOnly []string
+	Diff         []string
+}
+
 func filterEntries(groups []Group, entries *map[string]Entry) {
 	for _, group := range groups {
 		if group.Title == "Backup" {
@@ -46,7 +52,7 @@ func filterEntries(groups []Group, entries *map[string]Entry) {
 	}
 }
 
-func diff(masterEntries map[string]Entry, conflictEntries map[string]Entry) {
+func diff(masterEntries map[string]Entry, conflictEntries map[string]Entry) (result Result) {
 	masterOnlyKeys := make([]string, 0)
 	conflictOnlyKeys := make([]string, 0)
 	diffKeys := make([]string, 0)
@@ -78,9 +84,10 @@ func diff(masterEntries map[string]Entry, conflictEntries map[string]Entry) {
 		}
 	}
 
-	fmt.Println("Master Only: ", masterOnlyKeys)
-	fmt.Println("Conflict Only: ", conflictOnlyKeys)
-	fmt.Println("Diff: ", diffKeys)
+	result.MasterOnly = masterOnlyKeys
+	result.ConflictOnly = conflictOnlyKeys
+	result.Diff = diffKeys
+	return result
 }
 
 func readXML(filePath string) (d Database, err error) {
@@ -118,5 +125,9 @@ func main() {
 	conflictEntries := make(map[string]Entry)
 	filterEntries(masterDB.Groups, &masterEntries)
 	filterEntries(conflictDB.Groups, &conflictEntries)
-	diff(masterEntries, conflictEntries)
+	result := diff(masterEntries, conflictEntries)
+
+	fmt.Println("Master Only: ", result.MasterOnly)
+	fmt.Println("Conflict Only: ", result.ConflictOnly)
+	fmt.Println("Diff: ", result.Diff)
 }
